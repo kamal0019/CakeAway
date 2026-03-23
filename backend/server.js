@@ -10,9 +10,13 @@ const { connectDB, getCollection } = require('./db');
 const PORT_VAL = process.env.PORT || 5000;
 const SECRET_KEY = process.env.SECRET_KEY || 'cake-away-secret-key-123';
 const BASE_URL = process.env.BASE_URL || `http://localhost:${PORT_VAL}`;
-const UPLOADS_DIR = path.join(__dirname, 'uploads');
-if (!process.env.VERCEL && !fs.existsSync(UPLOADS_DIR)) {
-  fs.mkdirSync(UPLOADS_DIR);
+try {
+  const UPLOADS_DIR = path.join(__dirname, 'uploads');
+  if (!fs.existsSync(UPLOADS_DIR)) {
+    fs.mkdirSync(UPLOADS_DIR);
+  }
+} catch (e) {
+  console.log('Skipping uploads directory creation (read-only filesystem)');
 }
 
 // Cloudinary Configuration
@@ -404,7 +408,7 @@ async function handleUpload(req, res) {
   const user = verifyToken(req);
   if (!user || !user.isAdmin) return sendError(res, 403, 'Forbidden: Admin access required');
 
-  const form = new formidable.IncomingForm();
+  const form = new formidable.IncomingForm({ uploadDir: '/tmp', keepExtensions: true });
   form.parse(req, async (err, fields, files) => {
     if (err) return sendError(res, 400, 'Upload error');
     
