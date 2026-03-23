@@ -326,7 +326,7 @@ function verifyToken(req) {
 async function handleCakes(req, res, pathname, query) {
   if (req.method === 'GET') {
     if (pathname === '/api/cakes') {
-      const cakes = await Cakes.find().toArray();
+      const cakes = Cakes ? await Cakes.find().toArray() : initialCakes;
       sendJSON(res, 200, { cakes });
     } else if (pathname === '/api/cakes/search') {
       const q = query.q ? query.q.toLowerCase() : '';
@@ -488,7 +488,7 @@ async function handleOrders(req, res, pathname) {
 }
 
 async function handleCategories(req, res) {
-  const cats = await Categories.find().toArray();
+  const cats = Categories ? await Categories.find().toArray() : initialCategories;
   sendJSON(res, 200, { categories: cats });
 }
 
