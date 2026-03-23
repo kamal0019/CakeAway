@@ -1,4 +1,4 @@
-export const API_BASE_URL = "http://localhost:5000";
+export const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000";
 export const BAKERY_ADDRESS = "Cake away, Tonk Rd, Shreeji Nagar, Green Nagar, Vasundhara Colony, Durgapura, Jaipur, Rajasthan 302018";
 
 export const navLinks = [
