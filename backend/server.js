@@ -558,6 +558,12 @@ async function requestHandler(req, res) {
   const pathname = parsedUrl.pathname;
   if (req.method === 'OPTIONS') return handleOptions(res);
 
+  if (pathname === '/') {
+    res.writeHead(200, { 'Content-Type': 'text/plain' });
+    res.end('API is running');
+    return;
+  }
+
   if (pathname.startsWith('/uploads/')) {
     const filename = pathname.split('/uploads/')[1];
     const filepath = path.join(UPLOADS_DIR, filename);
