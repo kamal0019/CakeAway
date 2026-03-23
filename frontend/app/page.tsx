@@ -222,8 +222,9 @@ export default async function HomePage() {
           <div className="overflow-hidden rounded-[2.5rem] border border-white/60 bg-white/80 p-4 shadow-soft backdrop-blur-sm">
             <iframe
               title="Google map location"
-              src={`https://www.google.com/maps?q=${encodeURIComponent(BAKERY_ADDRESS)}&output=embed`}
+              src={`https://maps.google.com/maps?q=${encodeURIComponent(BAKERY_ADDRESS)}&t=&z=15&ie=UTF8&iwloc=&output=embed`}
               className="h-[360px] w-full rounded-[2rem] border-0"
+              allowFullScreen
               loading="lazy"
             />
           </div>
