@@ -40,7 +40,7 @@ export function Footer() {
       </div>
       <div className="mx-auto max-w-7xl px-4 pb-8 sm:px-6 lg:px-8">
         <div className="border-t border-truffle/5 pt-8 text-center">
-          <p className="text-[10px] uppercase tracking-[0.2em] text-mocha/50">
+          <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-truffle">
             @2026 all rigth reserve to YugSoft-Tech
           </p>
         </div>
