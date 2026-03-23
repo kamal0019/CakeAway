@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { navLinks } from "@/lib/constants";
@@ -54,14 +55,15 @@ export function Header() {
       <div className="mx-auto max-w-7xl px-4 py-3 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between">
           {/* Logo */}
-          <Link href="/" className="flex items-center gap-3 group transition-transform hover:scale-[1.02]">
-            <div className="flex h-10 w-10 items-center justify-center rounded-full bg-truffle text-sm font-bold text-cream shadow-soft group-hover:bg-cocoa">
-              CA
-            </div>
-            <div className="flex flex-col">
-              <p className="font-display text-base sm:text-lg tracking-tight text-truffle">Cake Away</p>
-              <p className="text-[8px] sm:text-[10px] uppercase tracking-[0.2em] sm:tracking-[0.4em] text-mocha/60 -mt-0.5 sm:-mt-1">Freshly Baked Happiness</p>
-            </div>
+          <Link href="/" className="flex items-center gap-2 group transition-transform hover:scale-[1.05]">
+            <Image 
+              src="/logo.png" 
+              alt="Cake Away Logo" 
+              width={160} 
+              height={160} 
+              className="h-16 w-auto drop-shadow-sm" 
+              priority
+            />
           </Link>
 
           {/* Desktop Nav */}

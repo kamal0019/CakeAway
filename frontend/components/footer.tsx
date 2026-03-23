@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { navLinks, BAKERY_ADDRESS } from "@/lib/constants";
 
@@ -12,7 +13,13 @@ export function Footer() {
     <footer className="mt-24 border-t border-cocoa/10 bg-[#f8ede6]">
       <div className="mx-auto grid max-w-7xl gap-10 px-4 py-12 sm:px-6 lg:grid-cols-[1.2fr_0.8fr_1fr] lg:px-8">
         <div>
-          <p className="font-display text-3xl text-truffle">Cake Away</p>
+          <Image 
+            src="/logo.png" 
+            alt="Cake Away Logo" 
+            width={200} 
+            height={200} 
+            className="h-24 w-auto mb-2" 
+          />
           <p className="mt-3 max-w-md text-sm leading-7 text-cocoa/75">
             Luxury cakes for birthdays, weddings and everyday celebrations, crafted with warm flavours and modern artistry.
           </p>
