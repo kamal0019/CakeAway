@@ -60,7 +60,7 @@ export function Header() {
             </div>
             <div className="flex flex-col">
               <p className="font-display text-base sm:text-lg tracking-tight text-truffle">Cake Away</p>
-              <p className="hidden sm:block text-[10px] uppercase tracking-[0.4em] text-mocha/60 -mt-1">Freshly Baked Happiness</p>
+              <p className="text-[8px] sm:text-[10px] uppercase tracking-[0.2em] sm:tracking-[0.4em] text-mocha/60 -mt-0.5 sm:-mt-1">Freshly Baked Happiness</p>
             </div>
           </Link>
 

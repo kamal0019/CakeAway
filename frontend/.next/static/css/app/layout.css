@@ -1116,6 +1116,9 @@ video {
 .mt-auto {
   margin-top: auto;
 }
+.-mt-0\.5 {
+  margin-top: -0.125rem;
+}
 .block {
   display: block;
 }
@@ -1793,6 +1796,9 @@ video {
   font-size: 0.75rem;
   line-height: 1rem;
 }
+.text-\[8px\] {
+  font-size: 8px;
+}
 .font-bold {
   font-weight: 700;
 }
@@ -2217,6 +2223,10 @@ body {
 }
 @media (min-width: 640px) {
 
+  .sm\:-mt-1 {
+    margin-top: -0.25rem;
+  }
+
   .sm\:block {
     display: block;
   }
@@ -2255,6 +2265,14 @@ body {
   .sm\:text-lg {
     font-size: 1.125rem;
     line-height: 1.75rem;
+  }
+
+  .sm\:text-\[10px\] {
+    font-size: 10px;
+  }
+
+  .sm\:tracking-\[0\.4em\] {
+    letter-spacing: 0.4em;
   }
 }
 @media (min-width: 768px) {
