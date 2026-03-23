@@ -6,15 +6,18 @@ const client = new MongoClient(uri);
 let database;
 
 async function connectDB() {
+  if (database) return database;
   try {
     await client.connect();
     database = client.db("cakeway");
     console.log("Connected successfully to MongoDB");
-    
-    // Test connectivity and ensure collections exist if needed
     return database;
   } catch (err) {
     console.error("MongoDB Connection Error:", err);
+    // In serverless, we might not want to exit the process
+    if (process.env.VERCEL) {
+      throw err;
+    }
     process.exit(1);
   }
 }

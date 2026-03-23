@@ -587,10 +587,18 @@ async function requestHandler(req, res) {
   }
 }
 
-const server = http.createServer(requestHandler);
+// Serverless export for Vercel
+module.exports = async (req, res) => {
+  await initializeDB();
+  return requestHandler(req, res);
+};
 
-initializeDB().then(() => {
-  server.listen(PORT_VAL, () => {
-    console.log(`Cake Away Backend API running on port ${PORT_VAL} w/ MongoDB`);
+// Local development listener
+if (require.main === module) {
+  const server = http.createServer(requestHandler);
+  initializeDB().then(() => {
+    server.listen(PORT_VAL, () => {
+      console.log(`Cake Away Backend API running on port ${PORT_VAL} w/ MongoDB`);
+    });
   });
-});
+}
