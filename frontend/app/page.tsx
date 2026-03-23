@@ -15,7 +15,8 @@ async function getReviews() {
     const res = await fetch(`${API_BASE_URL}/api/reviews`, { next: { revalidate: 0 } });
     if (!res.ok) return fallbackReviews;
     const data = await res.json();
-    return Array.isArray(data) ? data : (data.reviews || fallbackReviews);
+    const reviews = Array.isArray(data) ? data : (data.reviews || []);
+    return reviews.length > 0 ? reviews : fallbackReviews;
   } catch (error) {
     console.error("Home: Failed to fetch reviews:", error);
     return fallbackReviews;

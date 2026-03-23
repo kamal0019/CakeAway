@@ -173,6 +173,27 @@ const initialCakes = [
   }
 ];
 
+const initialReviews = [
+  {
+    name: "Ananya Mehta",
+    text: "The wedding cake looked couture and tasted even better. Guests kept asking which bakery made it.",
+    rating: 5,
+    date: "2024-03-20T10:00:00.000Z"
+  },
+  {
+    name: "Rohan Kapoor",
+    text: "Cake Away nailed the custom message, delivery timing and the chocolate finish. It felt truly premium.",
+    rating: 5,
+    date: "2024-03-21T12:00:00.000Z"
+  },
+  {
+    name: "Sana Ali",
+    text: "Beautiful packaging, soft sponge and seamless checkout. This is now my go-to cake shop.",
+    rating: 4,
+    date: "2024-03-22T15:00:00.000Z"
+  }
+];
+
 // Initialize DB and seeding
 async function initializeDB() {
   try {
@@ -217,6 +238,12 @@ async function initializeDB() {
     if (catCount === 0) {
       await Categories.insertMany(initialCategories);
       console.log("Categories seeded");
+    }
+
+    const revCount = await Reviews.countDocuments();
+    if (revCount === 0) {
+      await Reviews.insertMany(initialReviews);
+      console.log("Reviews seeded");
     }
 
     // Seed Admin User if not exists
