@@ -1,12 +1,19 @@
 const { MongoClient } = require('mongodb');
 
-const uri = process.env.MONGODB_URI || "mongodb://localhost:27017/cakeway";
-const client = new MongoClient(uri);
-
+let client;
 let database;
 
 async function connectDB() {
   if (database) return database;
+  
+  const uri = process.env.MONGODB_URI || "mongodb://localhost:27017/cakeway";
+  if (!client) {
+    client = new MongoClient(uri, { 
+      connectTimeoutMS: 5000,
+      serverSelectionTimeoutMS: 5000 
+    });
+  }
+
   try {
     await client.connect();
     database = client.db("cakeway");
