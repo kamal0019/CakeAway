@@ -58,9 +58,9 @@ export function Header() {
             <div className="flex h-10 w-10 items-center justify-center rounded-full bg-truffle text-sm font-bold text-cream shadow-soft group-hover:bg-cocoa">
               CA
             </div>
-            <div className="hidden sm:block">
-              <p className="font-display text-lg tracking-tight text-truffle">Cake Away</p>
-              <p className="text-[10px] uppercase tracking-[0.4em] text-mocha/60 -mt-1">Freshly Baked Happiness</p>
+            <div className="flex flex-col">
+              <p className="font-display text-base sm:text-lg tracking-tight text-truffle">Cake Away</p>
+              <p className="hidden sm:block text-[10px] uppercase tracking-[0.4em] text-mocha/60 -mt-1">Freshly Baked Happiness</p>
             </div>
           </Link>
 
