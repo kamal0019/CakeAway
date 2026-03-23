@@ -599,6 +599,14 @@ async function requestHandler(req, res) {
 
 // Serverless export for Vercel
 module.exports = async (req, res) => {
+  const parsedUrl = url.parse(req.url, true);
+  const pathname = parsedUrl.pathname;
+
+  // Skip DB initialization for simple health checks
+  if (pathname === '/' || pathname === '/api/health') {
+    return requestHandler(req, res);
+  }
+
   await initializeDB();
   return requestHandler(req, res);
 };
