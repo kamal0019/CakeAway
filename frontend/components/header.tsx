@@ -145,7 +145,7 @@ export function Header() {
             ) : (
               <Link
                 href="/auth/login"
-                className="hidden sm:flex h-10 items-center rounded-full bg-truffle px-6 text-[11px] font-bold uppercase tracking-widest text-cream transition hover:bg-cocoa shadow-soft"
+                className="flex h-10 items-center rounded-full bg-truffle px-4 sm:px-6 text-[11px] font-bold uppercase tracking-widest text-cream transition hover:bg-cocoa shadow-soft"
               >
                 Sign In
               </Link>
