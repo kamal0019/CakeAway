@@ -1731,6 +1731,12 @@ video {
 .pt-5 {
   padding-top: 1.25rem;
 }
+.pb-8 {
+  padding-bottom: 2rem;
+}
+.pt-8 {
+  padding-top: 2rem;
+}
 .text-left {
   text-align: left;
 }
@@ -1940,6 +1946,9 @@ video {
 .text-yellow-800 {
   --tw-text-opacity: 1;
   color: rgb(133 77 14 / var(--tw-text-opacity, 1));
+}
+.text-mocha\/50 {
+  color: rgb(159 113 87 / 0.5);
 }
 .shadow-glow {
   --tw-shadow: 0 30px 80px rgba(202, 165, 106, 0.18);
