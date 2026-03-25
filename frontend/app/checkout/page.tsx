@@ -6,7 +6,13 @@ import { API_BASE_URL } from "@/lib/constants";
 
 export default function CheckoutPage() {
   const router = useRouter();
+  const BAKERY_COORDS = { lat: 26.8524, lon: 75.7933 };
+
   const [loading, setLoading] = useState(false);
+  const [checkingLocation, setCheckingLocation] = useState(false);
+  const [distance, setDistance] = useState<number | null>(null);
+  const [locationError, setLocationError] = useState<string | null>(null);
+
   const [formData, setFormData] = useState({
     customerName: "",
     customerEmail: "",
@@ -31,8 +37,55 @@ export default function CheckoutPage() {
     }
   });
 
+  const getDistance = (lat1: number, lon1: number, lat2: number, lon2: number) => {
+    const R = 6371; // km
+    const dLat = (lat2 - lat1) * Math.PI / 180;
+    const dLon = (lon2 - lon1) * Math.PI / 180;
+    const a = 
+      Math.sin(dLat/2) * Math.sin(dLat/2) +
+      Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) * 
+      Math.sin(dLon/2) * Math.sin(dLon/2);
+    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+    return R * c;
+  };
+
+  const checkEligibility = () => {
+    setCheckingLocation(true);
+    setLocationError(null);
+    
+    if (!navigator.geolocation) {
+      setLocationError("Geolocation is not supported by your browser.");
+      setCheckingLocation(false);
+      return;
+    }
+
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        const d = getDistance(
+          position.coords.latitude,
+          position.coords.longitude,
+          BAKERY_COORDS.lat,
+          BAKERY_COORDS.lon
+        );
+        setDistance(d);
+        setCheckingLocation(false);
+      },
+      (err) => {
+        console.error("Location error:", err);
+        setLocationError("Could not get your location. Please ensure GPS is enabled.");
+        setCheckingLocation(false);
+      }
+    );
+  };
+
+  const isEligible = distance !== null && distance <= 20;
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (!isEligible) {
+      alert("Please verify your delivery eligibility first.");
+      return;
+    }
     setLoading(true);
     
     try {
@@ -166,6 +219,32 @@ export default function CheckoutPage() {
             ))}
           </div>
 
+          <div className="rounded-[1.75rem] border border-cocoa/10 bg-cream p-6 shadow-sm">
+            <p className="text-xs uppercase tracking-[0.2em] font-bold text-mocha">Delivery Radius Check</p>
+            <p className="mt-2 text-sm text-cocoa/75">We deliver within a 20km radius of our bakery in Jaipur.</p>
+            
+            <button
+              type="button"
+              onClick={checkEligibility}
+              disabled={checkingLocation}
+              className="mt-4 w-full rounded-full border border-cocoa/20 bg-white px-4 py-2.5 text-xs font-bold uppercase tracking-widest text-truffle shadow-soft transition hover:scale-[1.02] disabled:opacity-50"
+            >
+              {checkingLocation ? "Checking..." : distance !== null ? "Re-check Eligibility" : "Verify My Location"}
+            </button>
+
+            {distance !== null && (
+              <div className={`mt-4 rounded-xl p-3 text-sm font-medium ${isEligible ? "bg-green-100 text-green-800" : "bg-red-100 text-red-800"}`}>
+                {isEligible 
+                  ? `✓ You are within range (${distance.toFixed(1)} km away)` 
+                  : `✗ Sorry, your location is ${distance.toFixed(1)} km away. We only deliver within 20km.`}
+              </div>
+            )}
+            
+            {locationError && (
+              <p className="mt-3 text-xs text-red-600 font-medium">{locationError}</p>
+            )}
+          </div>
+
           <div className="rounded-[1.75rem] bg-[#fff4eb] p-5 text-sm leading-7 text-cocoa/75">
             Order confirmation is sent via WhatsApp after payment, and delivery updates are available in Track Order.
           </div>
@@ -173,8 +252,8 @@ export default function CheckoutPage() {
           <button 
             type="button"
             onClick={handleSubmit}
-            disabled={loading}
-            className="w-full rounded-full bg-cocoa px-6 py-4 text-sm font-semibold uppercase tracking-[0.25em] text-cream transition hover:bg-truffle disabled:opacity-50"
+            disabled={loading || !isEligible}
+            className="w-full rounded-full bg-cocoa px-6 py-4 text-sm font-semibold uppercase tracking-[0.25em] text-cream transition hover:bg-truffle disabled:opacity-30"
           >
             {loading ? "Placing Order..." : "Place Order"}
           </button>
